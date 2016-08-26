@@ -1,0 +1,339 @@
+北京胡氏新生代科技有限公司（开业）     
+统一社会信用代码：  91110105MA006A4D9M， 法定代表人：  胡水田， 住所：  北京市朝阳区广华居19号楼2层201(来广营天龙之帆孵化器279号)
+经营范围：  技术开发、技术推广、技术转让、技术咨询、技术服务；计算机系统服务；基础软件服务；应用软件服务（不含医用软件）；软件开发。（企业依法自主选择经营项目，开展经营活动；依法须经批准的项目，经相关部门批准后依批准的内容开展经营活动；不得从事本市产业政策禁止和限制类项目的经营活动。）
+
+www.taiyiyun.com
+Light Ethereum Subprotocol (LES)
+http://36kr.com/p/5048221.html
+
+
+
+
+ssh -i 2096334045qqcom.pem admin@52.37.235.27
+
+
+
+
+
+
+
+
+#1
+#intelledge:
+#http://intelledger.github.io/tutorial.html
+#Clone Repositories
+cd /usr/src
+mkdir intelledger
+cd /usr/src/intelledger
+git clone https://github.com/IntelLedger/sawtooth-core.git
+git clone https://github.com/IntelLedger/sawtooth-dev-tools.git
+git clone https://github.com/IntelLedger/sawtooth-docs.git
+git clone https://github.com/IntelLedger/sawtooth-mktplace.git
+git clone https://github.com/IntelLedger/sawtooth-validator.git
+
+#Building sawtooth-core:
+cd /usr/src/intelledger/sawtooth-core
+sudo python setup.py build 
+
+#http://www.cryptopp.com/wiki/Linux
+sudo apt-cache pkgnames | grep -i crypto++ 
+sudo apt-get install libcrypto++-dev libcrypto++-utils libcrypto++9
+sudo apt-get install libjson-c-dev
+sudo python setup.py install
+
+
+#Running txnvalidator:
+cd /usr/src/intelledger/sawtooth-validator
+sudo python setup.py install
+sudo ./bin/txnvalidator -v --http 8800
+#press CTRL-c
+
+#Working with the MarketPlace Transaction Family
+cd /usr/src/intelledger/sawtooth-docs/source/tutorial
+sudo vim txnvalidator.js
+
+# add “mktplace.transactions.market_place” to the list of transaction families.
+ "TransactionFamilies" : [
+    "ledger.transaction.integer_key",
+     "mktplace.transactions.market_place"
+ ],
+#Don't miss the comma.
+
+cd /usr/src/intelledger/sawtooth-validator
+sudo ./bin/txnvalidator -v --config ../sawtooth-docs/source/tutorial/txnvalidator.js
+
+#open a new terminal
+
+cd /usr/src/intelledger/sawtooth-validator
+sudo ./bin/txnkeygen --keydir keys mkt
+sudo ./bin/txnkeygen --keydir keys alice
+sudo ./bin/txnkeygen --keydir keys bob
+
+sudo find / -name mktclient.js
+cd /usr/src/intelledger/sawtooth-mktplace
+sudo cp ./etc/mktclient.js /etc/sawtooth-validator
+sudo vim mktclient.js 
+#change keyfile to  "./keys/{name}.wif"
+
+cd /usr/src/intelledger/sawtooth-validator
+sudo cp -r keys  ../sawtooth-mktplace/
+cd /usr/src/intelledger/sawtooth-mktplace
+sudo ./bin/mktclient --name mkt
+
+
+
+
+#2
+#ripple on ubuntu16.04 
+#gcc-5 g++-5
+sudo apt-get install libboost-dev
+sudo apt-get -y install git scons ctags pkg-config protobuf-compiler libprotobuf-dev libssl-dev python-software-properties libboost1.58-all-dev 
+
+#http://blog.fens.me/nodejs-enviroment/
+cd /usr/src
+sudo git clone git://github.com/joyent/node.git 
+cd node
+sudo git checkout v0.10.25-release
+sudo ./configure
+sudo make
+sudo make install
+cd /usr/src
+sudo git clone github.com/npm/npm.git
+sudo git checkout v1.4.x
+sudo make install 
+cd /usr/src
+sudo git clone https://github.com/ripple/rippled.git ; cd rippled/ ; git checkout master ; scons ; ./build/rippled --unittest
+npm install
+npm test
+
+
+
+
+#3
+#IBM OBC
+#learn:golang 
+#      docker 
+#      curl
+#      rpc grpc
+#build in vagrant
+sudo apt-get install golang
+sudo vim ~/.bashrc
+#edit in the end:
+#export GOROOT="/usr/lib/go"
+#export GOPATH="/home/hjl/go"
+#export PATH=$GOPATH/bin:$PATH
+
+cd /home/hjl
+mkdir go
+cd go 
+mkdir src pkg bin
+
+#clone the porject
+cd $GOPATH/src
+mkdir -p github.com/openblockchain
+cd /home/hjl/go/src/github.com/openblockchain
+git clone https://github.com/openblockchain/obc-peer.git
+cd /home/hjl
+mkdir wk
+cd /home/hjl/wk
+sudo git clone https://github.com/openblockchain/obc-dev-env.git
+cd /home/hjl/wk/obc-dev-env
+sudo vagrant up
+sudo vagrant ssh
+
+#build the project
+cd $GOPATH/src/github.com/openblockchain/obc-peer
+go build
+cd $GOPATH/src/github.com/openblockchain/obc-peer
+sudo ./obc-peer
+
+#unit tests
+#one one window,run ./obc-peer peer
+cd $GOPATH/src/github.com/openblockchain/obc-peer
+sudo ./obc-peer peer
+# in a second window,run
+cd $GOPATH/src/github.com/openblockchain/obc-peer
+go test -timeout=20m $(go list github.com/openblockchain/obc-peer/... | grep -v /vendor/ | grep -v /examples/)
+
+#use curl to send REST Request:
+curl -H "Accept:application/json" http://localhost:5000/registrar -X POST -d '{"enrollId":"jim", "enrollSecret":"NPKYL39uKbkj"}'
+
+
+
+
+#4
+#DigitalAssentCom hlp-candidate
+#java 
+#scala
+http://stackoverflow.com/questions/15417378/maven-protobuf-compile-error-cannot-find-symbol-in-package-com-google-protobu
+cd /usr/src/hlp-candidate
+修改pom.xml中protobuf version 为2.6.1（当前下载版本）
+ 
+cd /usr/src/hlp-candidate/server/main/target/
+cp hyperledger-server-main-*-dist.tar.gz /usr/src/dahhlp/
+tar zxf hyperledger-server-main-*-dist.tar.gz
+
+cd /usr/src/dahhlp/hyperledger-server-main-*
+
+
+#https://activemq.apache.org/activemq-5111-release.html	
+#（下载apache-activemq-5.11.1-bin.tar.gz）
+cd /usr/src
+mv /usr/src/apache-activemq-5.11.1-bin.tar.gz /usr/src
+tar zxvf apache-activemq-5.11.1-bin.tar.gz
+ln -s /usr/src/apache-activemq-5.11.1/bin/activemq /usr/bin/activemq
+
+cd /usr/src/hlp-candidate/examples/jmsclient/target
+cp hyperledger-examples-jmsclient-*.jar /usr/src/dahhlp
+
+
+
+cd /usr/src/apache-activemq-5.11.1/conf 
+mv activemq.xml activemq.xml.old 
+
+cd /usr/src/dahhlp/hyperledger-server-main-*/conf
+cp activemq.xml /usr/src/apache-activemq-5.11.1/conf/
+
+cd /usr/src/dahhlp/hyperledger-server-main-2.0.0-SNAPSHOT
+./start.sh conf/bitcoin1.conf
+./stop.sh
+
+#add group.user activemq.activemq
+adduser activemq
+chown -R activemq.activemq /usr/src/apache-activemq-5.11.1
+
+
+
+
+#5
+#ElementsProject/elements
+#https://github.com/ElementsProject/elements/blob/alpha/alpha-README.md
+
+cd /usr/rc
+git clone https://github.com/ElementsProject/elements
+cd /usr/src/elements
+git checkout mainchain
+
+sudo apt-get install autoconf automake libtool
+sudo apt-get install libdb-dev
+sudo apt-get install libdb++-dev
+sudo ./autogen.sh && ./configure --with-incompatible-bdb && make 
+mv src/bitcoin{d,-cli,-tx} ../ealphad/
+git checkout alpha
+sudo ./autogen.sh && ./configure --with-incompatible-bdb && make
+mv src/alpha{d,-cli,-tx} ../ealphad/
+
+RPC_USER=user
+RPC_PASS=pass
+./bitcoind -rpcuser=$RPC_USER -rpcpassword=$RPC_PASS -testnet -txindex -daemon
+./alphad -rpcuser=$RPC_USER -rpcpassword=$RPC_PASS -testnet -rpcconnect=127.0.0.1 -rpcconnectport=18332 -tracksidechain=all -txindex -blindtrust=true -daemon
+git clone https://github.com/bitcoin/secp256k1
+cd secp256k1
+./autogen.sh && ./configure --with-bignum=no && make
+make DESTDIR=`pwd`/install install
+cd ..
+git clone https://github.com/blockstream/contracthashtool
+cd contracthashtool
+make CXXFLAGS="-I../secp256k1/install/usr/local/include -L../secp256k1/install/usr/local/lib -static"
+cd ..
+git clone https://github.com/jgarzik/python-bitcoinrpc
+cd /usr/src/elements/contrib
+#Edit sidechain-manipulation.py (replace user:pass with your RPC username and password)
+
+5.
+python setup.py install
+
+
+Insufficient funds
+
+
+
+
+#6
+#http://www.blockstream.com/
+#http://www.ethdocs.org/en/latest/
+#https://www.blockstream.com/2015/10/12/introducing-liquid/
+#https://github.com/ethereum/wiki/wiki
+
+
+
+
+#7
+#Mix IDE
+cd /usr/src/go-ethereum/build/bin
+ln -s /usr/src/go-ethereum/build/bin/geth /usr/bin/geth
+
+geth --rpc --testnet --unlock 0xc21cb4702c8c83ea8c56b94658adb0596b3336aa --rpccorsdomain http://localhost:8545 --rpccorsdomain http://localhost:8080
+main account:0xc21cb4702c8c83ea8c56b94658adb0596b3336aa
+
+geth --rpc --testnet --unlock 0xec24c4879c649fee7f29b20b00bcd78d561893ae --rpccorsdomain http://localhost:8545
+input password to unlock deployment account.
+
+
+
+
+#8
+#testrpc
+Available Accounts
+==================
+(0) 0x4df4b8e4958eb176af753cde5866659f75f0655d
+(1) 0x9be6c8c9cdee517a85d42d28c3de15629138ccab
+(2) 0x416642d75ca348e6fbca3bc1a6cf7d809e5da0b3
+(3) 0xda7aca68d86973af9f23a705a61e0f068dcce03f
+(4) 0xbb8944c4f1f3d5e0a42c82bbccc0b791736e56fa
+(5) 0xf5a4fe6787a9e4b7b501d1b0d612a7c43dff0b8e
+(6) 0x9510d0f4055a931210bf02e4170bcf2e57f3780d
+(7) 0x0f8d4e3518bd29fc0644bd75f703d09cf191d977
+(8) 0xabd7cf1072dd2e16e4727eb7d8a4e727ce2ef30f
+(9) 0x10140182bbe7499fc296b6278d9a532d61ded629
+
+Private Keys
+==================
+(0) df46c848c78ef6e5fa2af5907d66fd9a77ad05f7c48d054774b609f9ee6f6f4d
+(1) 365f91970b06f3ca3f26d8c95808158a341fd4ce31744836d6636d377a78ee38
+(2) 2bc03af33f0726754e098d462f2c6d6acd9f7872ad6d24fa61211f232fe6bfc7
+(3) 004c6b5fcbdc7f5bd48b1066713fbfb3d3e5bf11322978bdce0f303410e06287
+(4) a159bb076f4b30dad0b7ba3f255593cf3dbd078b72b003a8ddecda87069f9998
+(5) a81728d944e466ada773927e5c63caa19f91a76f77f9c3689381f39b291732d7
+(6) e4e387547fb97ad22687b3e1f78558367eeb3a10c23412a994e47e8713fd7405
+(7) d0adde653a8fb7a4e9d6055a04445eedf59a7eb99116cfdb723a95fc668e8370
+(8) 227b3580a5cb692cd7c4749602f835ce0bd569112c2318f70325634cc18649ac
+(9) 4695b16a6d81d21c17b4cd9b372332282f77cf5d34c7970b968044886b2b744a
+
+
+ConvertLib to address: 0x4b0a85a7a82806b6c137d53cc089467e203dd639
+MetaCoin to address: 0x3fdb72ebaaeefb698950733c74065f3b4427f082
+
+
+
+#9
+#embark-framework
+grunt?
+
+embark blockchain staging 
+vim config/blockchain.yml 
+# no "0x" prefix for address
+
+
+
+
+#10
+#Mist
+#https://github.com/ethereum/mist/
+curl https://install.meteor.com/ | sh
+#meteor version 1.4.0.1,installed in (~/.meteor)
+
+npm install -g gulp
+#gulp version 3.9.1 (use: npm ls *, *:lodash,graceful-fs,minimatch)
+
+ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/ npm install -g electron-prebuilt@1.2.5
+
+
+
+
+#11.paho.mqtt.c compile
+gcc -o mqtt mqtt.c -lpaho-mqtt3c
+
+
+
+

@@ -1,0 +1,53 @@
+1.apt-cache: 
+  apt-cache search    :查询软件包
+  apt-cache pkgnames | grep -i 软件    : 列出所有的软件包，在其中不区分大小写搜索
+2.wget: 下载链接网址上的文件
+3.dpkg -i *.deb: debian软件包管理器，-i：安装. *缺省.
+4.ps aux|grep  ：查看进程
+  kill 进程号   ：强行推出进程
+5.ls -al 列出目录的所有详细信息
+6.find / -name  :查询root下的文件
+  find path -name 
+7.pwd    :查看当前工作目录的完整路径
+8.ln -s path path    :建立软链接
+9.chown 所有者:组 文件/目录    ：让某个群组下的某个用户拥有某个文件或目录的权限
+10. apt install gdebi-core    :gdebi管理工具安装.deb软件包
+11.但是我执行apt-get update 后报错,如下:
+
+W: GPG error: http://archive.ubuntukylin.com:10006/ubuntukylin xenial InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 8D5A09DC9B929006
+W: The repository 'http://archive.ubuntukylin.com:10006/ubuntukylin xenial InRelease' is not signed.
+N: Data from such a repository can't be authenticated and is therefore potentially dangerous to use.
+N: See apt-secure(8) manpage for repository creation and user configuration details.
+解决办法:
+转自http://www.ubuntukylin.com/ukylin/forum.php?mod=viewthread&tid=25039
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8D5A09DC9B929006
+注意最后的一串密钥就是报错信息里的, 每个人的不一样
+
+12.查看磁盘大小    :df -h， du -sh 目录
+   du -h --max-depth=1 /usr ,max-depth参数表示指定深入目录的层数
+
+13.删除libreoffice
+apt-get remove libreoffice-common  
+
+14.删除Amazon的链接
+apt-get remove unity-webapps-common  
+
+15.删掉基本不用的自带软件（用的时候再装也来得及）
+apt-get remove thunderbird totem rhythmbox empathy brasero simple-scan gnome-mahjongg aisleriot gnome-mines cheese transmission-common gnome-orca webbrowser-app gnome-sudoku  landscape-client-ui-install 
+apt-get remove onboard deja-dup  
+
+16.卸载ibus
+apt-get –purge remove ibus
+apt-get install unity-control-center
+
+
+17.软件版本切换
+update-alternatives –config 软件
+
+
+18. 从远程服务器上拷贝文件到本地
+scp -i *.pem admin@ip:/../..  /../..
+
+
+   
+

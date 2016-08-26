@@ -1,0 +1,137 @@
+#1.install sougou_pingyin
+apt-get remove fcitx
+apt-get autoremove
+gdebi sogou_pinyin_linux_1.0.0.0014_amd64.deb
+
+
+
+
+#2install Adobe Flash Player for firefox
+#https://get.adobe.com/cn/flashplayer/
+cd /home/hjl/Downloads
+tar -zxvf install_flash_player_11_linux.x86_64.tar.gz
+cp libflashplayer.so /usr/lib/firefox/browser/plugins
+cp -r usr/* /usr
+
+
+
+
+#3.truffle
+#http://truffle.readthedocs.io/en/latest/
+#nodejs 5.0.0,geth 1.5.0-unstable,EthereumJS TestRPC v2.0.8
+cd /usr/src
+mkdir truffle-dapp
+cd /usr/src/truffle-dapp
+truffle init
+...
+
+
+
+
+#4.solidity
+#https://solidity.readthedocs.io/en/latest/
+https://blog.ethereum.org/2016/06/10/smart-contract-security/
+
+Questions:
+(1).the blocks are reverted from time to time, but only at the “tip” of the chain.So it might be that your transactions are reverted and even removed from the blockchain.
+The Ethereum Virtual Machine.Transactions(create a contract??)
+#http://ethfans.org/posts/136.
+(2).send结果处理(fallback中，强行throw)
+(3).循环错误(因为有gas限制，所以通过制造超出gas限制的循环来攻击合约。)
+#http://ethfans.org/topics/419
+(4).send 和 call 的区别
+#https://blog.ethereum.org/2016/06/10/smart-contract-security/
+(5).Smart Contract Security
+
+
+
+
+#5.web3.js API
+#https://github.com/ethereum/wiki/wiki
+
+
+
+
+#6.ethereum.org/geths
+Questions:
+(1).json ABI 怎么实现的(顺序)
+（2）.区块的大小,挖矿，50%攻击.
+
+
+
+
+#7.SolC
+https://github.com/ethereum/go-ethereum/wiki/Contract-Tutorial
+add-apt-repository ppa:ethereum/ethereum
+apt-get update
+apt-get install solc
+which solc
+
+
+
+
+#8.The Dao
+https://github.com/slockit/DAO
+Questions:
+(1).ManagedAccount.sol
+_recipient.call.value(_amount)() ?
+(2).TokenCreation.sol
+Line 96:  extraBalance = new ManagedAccount(address(this), true)  ?
+Line 108: extraBalance.call.value(msg.value - token)() ?
+
+
+
+
+#9.install Vim plugin manager Vundle
+#https://github.com/VundleVim/Vundle.vim
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim ~/.vimrc
+
+add plugin between begin and end:
+#Plugin 'pangloss/vim-javascript'
+#Plugin 'tomlion/vim-solidity'
+#Plugin 'Valloric/YouCompleteMe' 
+
+npm install -g jshint
+ln -s /usr/src/node-v5.0.0-linux-x64/bin/jshint /usr/bin/jshint
+#JSHint {file}
+#Plugin 'walm/jshint.vim'
+
+#Tab / =...
+#Plugin 'godlygeek/tabular'
+
+#Launch vim and run :PluginInstall. update plugin and run PluginUpdate.
+
+#Plugin 'Valloric/YouCompleteMe'
+#need compile.
+mkdir ~/ycm_temp
+cd ~/ycm_temp
+#download clang
+xz -d clang+llvm-3.8.0-x86_64-linux-gnu-ubuntu-14.04.tar.xz
+tar -xvf clang+llvm-3.8.0-x86_64-linux-gnu-ubuntu-14.04.tar
+mv clang+llvm-3.8.0-x86_64-linux-gnu-ubuntu-14.04 llvm_root_dir
+cmake -G "Unix Makefiles" -DPATH_TO_LLVM_ROOT=~/ycm_temp/llvm_root_dir . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
+cmake --build . --target ycm_core
+
+
+
+#10.install redis,mongodb
+apt-get install redis-server
+vim /etc/redis/redis.conf
+# modify: daemonize yes
+
+# run redis
+redis-server  /etc/redis.conf
+
+# mongodb
+apt-get install mongodb
+#use mongodb
+mongo
+use nodedb
+show collections
+db.users.find()
+db.users.update({name: 'admin'},{$set:{userType:'admin'}});
+show collections
+db.projects.find()
+
+

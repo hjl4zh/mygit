@@ -135,3 +135,18 @@ show collections
 db.projects.find()
 
 
+
+
+11.#截屏软件Shutter
+apt-get install shutter
+#run Shutter
+shutter
+
+
+
+
+12.#文本复制xclip
+apt-get install xclip
+#use xclip
+xclip -sel clip < /root/...
+

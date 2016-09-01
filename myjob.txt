@@ -6,6 +6,12 @@ www.taiyiyun.com
 Light Ethereum Subprotocol (LES)
 http://36kr.com/p/5048221.html
 
+https://bitcoin.org/en/
+
+http://hadoop.apache.org/
+http://spark.apache.org/
+http://flink.apache.org/
+
 
 
 

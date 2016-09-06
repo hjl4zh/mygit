@@ -66,4 +66,4 @@ echo | gcc -v -E -x c++ -
 netstat -an | grep ':80'
 
 23.程序后台运行
-nohub command &
+nohup command &

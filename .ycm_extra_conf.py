@@ -38,7 +38,7 @@ flags = [
 '-Wall',
 '-Wextra',
 #'-Werror',
-'-Wc++98-compat',
+#'-Wc++98-compat',
 '-Wno-long-long',
 '-Wno-variadic-macros',
 '-fexceptions',
@@ -85,6 +85,12 @@ flags = [
 '/usr/include',
 '-isystem',
 '/usr/local/include',
+'isystem',
+'/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed',
+'isystem',
+'/usr/include/x86_64-linux-gnu',
+'isystem',
+'/usr/lib/gcc/x86_64-linux-gnu/4.8/include'
 ]
 
 

@@ -47,7 +47,23 @@ update-alternatives –config 软件
 
 18. 从远程服务器上拷贝文件到本地
 scp -i *.pem admin@ip:/../..  /../..
+上传
+scp -i 2096334045qqcom.pem mongodb.conf admin@52.37.235.27:
 
+19.下载整个网站
+wget -U "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; GTB5)" -r -p -np -k -nc http://www.XX.com
 
-   
+20.查看路径
+echo | clang -v -E -x c++ -
+echo | gcc -v -E -x c++ -
 
+21.apache2 server 服务开启停止
+/etc/init.d/apache2 start
+/etc/init.d/apache2 stop
+/etc/init.d/apache2 restart
+
+22.查看端口号
+netstat -an | grep ':80'
+
+23.程序后台运行
+nohub command &

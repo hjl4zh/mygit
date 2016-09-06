@@ -150,3 +150,14 @@ apt-get install xclip
 #use xclip
 xclip -sel clip < /root/...
 
+
+
+
+13.#gitserver
+git clone admin@54.186.213.86:~/git.git
+
+
+
+
+
+

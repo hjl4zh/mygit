@@ -38,7 +38,7 @@
 		 *
 		 * 默认打开
 		 */
-		"forin": true,
+		"forin": false,
 
 		/**
 		 * 是要求否以 strict 模式检查

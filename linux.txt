@@ -85,3 +85,13 @@ c. 按下“x”或者“d”.
 在拷贝前输入:set paste (这样的话，vim就不会启动自动缩进，而只是纯拷贝粘贴）
 拷贝完成之后，输入:set nopaste (关闭paste)
 
+26.清除旧内核镜像
+dpkg --list|grep linux-image
+dpkg --list|grep linux-headers
+dpkg --list|grep linux-image-extra
+apt-get purge linux-image-3.19.0-{18,20,21,25}
+apt-get purge linux-image-extra-3.19.0-{18,20,21,25}
+apt-get purge linux-headers-3.19.0-{18,20,21,25}
+update-grub2
+update-grub
+

@@ -1,0 +1,46 @@
+1.#https://github.com/bitpay/bitcore-wallet-service
+  #https://github.com/bitpay/bitcore-wallet-client
+  #https://bitcore.io/guides/full-node/
+  #https://github.com/bitpay/insight-api
+  #https://blog.bitpay.com/announcing-the-bitcore-wallet-suite/
+
+
+  #https://bitcore.io/guides/full-node/
+  nvm install v4
+  brew install zeromq
+  npm install -g bitcore
+  cd ~/hjl/mybitcore
+
+  #如果本地存在数据，比特币数据目录复制到~/hjl/mybitcore/.bitcoin(只复制blocks和chainstate目录, 尝试删除blocks下的index并在bitcoin.conf中添加reindex=1)
+  #bitcored
+  #~/.bitcore下获取bitcoin.conf,复制到~/hjl/mybitcore/.bitcoin/
+  #bitcore create -d ~/hjl/mybitcore/bitcoin/testnet3 mynode --testnet
+  
+  bitcore create mynode --testnet
+  cd ~/hjl/mybitcore/mynode
+  vim bitcore-node.json
+  #change the network to testnet and exec to local compiled bitcoind(./node_modules/bitcore-node/bin/bitcoind) 
+  cd ~/hjl/mybitcore/mynode && bitcoind
+  
+  #install block explorer
+  bitcore install insight-api insight-ui
+  # default url
+  http://localhost:3001/insight/
+
+  #启动mongod
+  mongod
+  cd ~/hjl/mybitcore/mynode
+  bitcore install bitcore-wallet-service
+  cd bitcore-wallet-service 
+  vim config.js
+  #testnet属性下添加apiPrefix: '/insight-api',
+  #default BWS service url:http://localhost:3232/bws/api
+  #add it to copay 
+  
+  #start service
+  npm start
+  #stop service
+  npm stop
+
+
+

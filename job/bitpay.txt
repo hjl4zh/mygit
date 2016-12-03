@@ -1,0 +1,9 @@
+#https://test.bitpay.com/
+#https://github.com/bitpay/node-bitpay-client
+
+npm install bitpay-rest
+./node_modules/bitpay-rest/bin/bitpay.js keygen
+./node_modules/bitpay-rest/bin/bitpay.js pair
+
+#visit the url and approve it(need vpn)
+

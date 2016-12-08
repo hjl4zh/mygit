@@ -7,6 +7,7 @@
 
   #https://bitcore.io/guides/full-node/
   nvm install v4
+  brew install pkg-config
   brew install zeromq
   npm install -g bitcore
   cd ~/hjl/mybitcore

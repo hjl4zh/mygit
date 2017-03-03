@@ -1,0 +1,18 @@
+// 系统环境
+ubuntu 16.04
+node v7.2.1
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+cnpm v4.5.0
+
+// 安装5.2.1版本
+git clone https://github.com/elastic/kibana.git
+cd kibana
+git checkout -b [your branch name] v5.2.1
+cnpm install
+
+// kibana根目录下，打开三个终端窗口分别运行
+// 打开https://localhost:5601查看kabana
+npm run elasticsearch
+npm run makelogs
+npm start
+
